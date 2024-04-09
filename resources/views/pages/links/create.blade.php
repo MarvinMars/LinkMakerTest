@@ -5,7 +5,7 @@
 @section('content')
     <div class="container col-xl-10 col-xxl-8 px-4 py-5">
         <div class="row align-items-center g-lg-5 py-5">
-            <div class="col-lg-7 text-center text-lg-start">
+            <div class="col-lg-5 text-center text-lg-start">
                 <h1 class="display-4 fw-bold lh-1 mb-3">Link creator test task</h1>
                 <div class="col-lg-10">
                     @session('link')
@@ -18,7 +18,7 @@
                     @endsession
                 </div>
             </div>
-            <div class="col-md-10 mx-auto col-lg-5">
+            <div class="col-md-10 mx-auto col-lg-7">
                 @include('partials.forms.createLink')
             </div>
         </div>
