@@ -1,7 +1,10 @@
+@php use App\Models\Link; @endphp
+
 <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" action="{{ route('links.store') }}">
     @csrf
     <div class="form-floating mb-3">
-        <input type="text" class="form-control @error('original_link') is-invalid @enderror" id="original_link" name="original_link" value="{{ old('original_link') }}">
+        <input type="text" class="form-control @error('original_link') is-invalid @enderror" id="original_link"
+               name="original_link" value="{{ old('original_link') }}">
         <label for="original_link">Original Link</label>
         @error('original_link')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -11,11 +14,12 @@
         'name' => 'life_seconds',
         'title' => 'Life Time',
         'min' => 0,
-        'max' => 60 * 60 * 24,
-        'value' => 60 * 3
+        'max' => Link::MAX_LIFE_TIME,
+        'value' => old('life_seconds')
     ])
     <div class="form-floating mb-3">
-        <input type="number" class="form-control @error('redirects_count') is-invalid @enderror" id="redirects_count" name="redirects_count" value="{{ old('redirects_count') }}">
+        <input type="number" class="form-control @error('redirects_count') is-invalid @enderror" id="redirects_count"
+               name="redirects_count" value="{{ old('redirects_count') }}">
         <label for="redirects_count">Redirects Count</label>
         @error('redirects_count')
         <div class="invalid-feedback">{{ $message }}</div>
