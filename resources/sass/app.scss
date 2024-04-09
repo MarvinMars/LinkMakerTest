@@ -1,1 +1,17 @@
 @import 'bootstrap/scss/bootstrap';
+
+.counter {
+  /* Disable number arrows */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Chrome, Safari, Edge, Opera */
+
+  /* Align value in center */
+  text-align: center;
+
+  /* Remove default styles for number arrows */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

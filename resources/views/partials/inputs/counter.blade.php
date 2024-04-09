@@ -1,31 +1,62 @@
 <div class="mb-3">
-    @if($title)
-        <label for="{{ $name }}" class="form-label">{{ $title }} <span id="output"></span></label>
-    @endif
-{{--    <div class="progress">--}}
-{{--        <div class="progress-bar" role="progressbar" style="width: {{ ($value / $max) * 100 }}%;" aria-valuenow="{{ $value ?? 0 }}" aria-valuemin="{{ $min }}" aria-valuemax="{{ $max }}">{{ $value ?? 0 }}</div>--}}
-{{--    </div>--}}
-    <input type="range" class="form-range" min="{{ $min }}" max="{{ $max }}" id="{{ $name }}" name="{{ $name }}" value="{{ $value }}">
+    <div class="row mb-3">
+        <div class="col-12">
+            @if($title)
+                <h5 class="w-100 text-secondary text-center">{{ $title }}</h5>
+            @endif
+        </div>
+        <div class="col-6 offset-3">
+            <div class="input-group mb-3">
+                <button class="btn btn-primary" type="button" id="{{ $name }}-button-decrement">-</button>
+                <input type="number"
+                       class="form-control form-control-lg counter"
+                       placeholder=""
+                       min="{{ $min }}"
+                       id="{{ $name }}"
+                       name="{{ $name }}"
+                       value="{{ $value }}"
+                >
+                <button class="btn btn-primary" type="button" id="{{ $name }}-button-increment">+</button>
+            </div>
+        </div>
+    </div>
     @error($name)
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
 
-<script>
-    const rangeInput = document.getElementById('{{ $name }}');
-    rangeInput.addEventListener('input', updateTime);
-    updateTime();
+@prependonce('scripts')
+    <script>
+        function initializeIncrementDecrement(idPrefix) {
+            const incrementButton = document.getElementById(idPrefix + '-button-increment');
+            const decrementButton = document.getElementById(idPrefix + '-button-decrement');
+            const inputField = document.getElementById(idPrefix);
 
-    function updateTime() {
-        const rangeValue = parseInt(rangeInput.value);
-        const hours = Math.floor(rangeValue / 3600);
-        const minutes = Math.floor((rangeValue % 3600) / 60);
-        const seconds = rangeValue % 60;
-        const formattedTime = pad(hours) + " : " + pad(minutes) + " : " + pad(seconds);
-        document.getElementById('output').innerText = formattedTime;
-    }
+            incrementButton.addEventListener('click', () => {
+                handleButtonClick(true);
+            });
 
-    function pad(num) {
-        return (num < 10) ? "0" + num : num;
-    }
-</script>
+            decrementButton.addEventListener('click', () => {
+                handleButtonClick(false);
+            });
+
+            function handleButtonClick(isIncrement) {
+                const step = parseFloat(inputField.getAttribute('step')) || 1;
+                let currentValue = parseFloat(inputField.value) || 0;
+
+                if (isIncrement) {
+                    inputField.value = currentValue + step;
+                } else {
+                    inputField.value = currentValue - step;
+                }
+            }
+        }
+    </script>
+@endprependonce
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeIncrementDecrement('{{ $name }}');
+        });
+    </script>
+@endpush

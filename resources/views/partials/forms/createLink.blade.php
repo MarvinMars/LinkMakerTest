@@ -17,13 +17,11 @@
         'max' => Link::MAX_LIFE_TIME,
         'value' => old('life_seconds')
     ])
-    <div class="form-floating mb-3">
-        <input type="number" class="form-control @error('redirects_count') is-invalid @enderror" id="redirects_count"
-               name="redirects_count" value="{{ old('redirects_count') }}">
-        <label for="redirects_count">Redirects Count</label>
-        @error('redirects_count')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    @include('partials.inputs.counter', [
+      'name' => 'redirects_count',
+      'title' => 'Redirects Count',
+      'min' => 0,
+      'value' => old('redirects_count')
+  ])
     <button class="w-100 btn btn-lg btn-primary" type="submit">Create</button>
 </form>
