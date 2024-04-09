@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Link;
 use App\Services\UniqueLinkGenerator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +15,7 @@ class LinkFactory extends Factory
     {
         return [
             'original_link' => fake()->url(),
-            'life_seconds' => fake()->numberBetween(0, 60 * 24),
+            'life_seconds' => fake()->numberBetween(0, Link::MAX_LIFE_TIME),
             'redirects_count' => fake()->numberBetween(1),
             'is_infinity' => 0,
             'short_link' => UniqueLinkGenerator::generate(),
