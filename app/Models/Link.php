@@ -27,7 +27,7 @@ class Link extends Model
 		parent::boot();
 
 		static::creating(function ($model) {
-			$model->is_infinity = $model->redirects_count === 0;
+			$model->is_infinity = (int)$model->redirects_count === 0;
 			$model->short_link = UniqueLinkGenerator::generate();
 		});
 	}
