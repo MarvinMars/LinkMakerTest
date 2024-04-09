@@ -21,7 +21,7 @@ class LinkTest extends TestCase
     {
         $data = [
             'original_link' => fake()->url(),
-            'life_seconds' => fake()->numberBetween(0, 60 * 24),
+            'life_seconds' => fake()->numberBetween(0, Link::MAX_LIFE_TIME),
             'redirects_count' => fake()->numberBetween(1),
         ];
 
@@ -36,7 +36,7 @@ class LinkTest extends TestCase
     {
         $data = [
             'original_link' => fake()->url(),
-            'life_seconds' => fake()->numberBetween(0, 60 * 24),
+            'life_seconds' => fake()->numberBetween(0, Link::MAX_LIFE_TIME),
             'redirects_count' => 0,
         ];
 
@@ -65,7 +65,7 @@ class LinkTest extends TestCase
 
         $response = $this->post(route('links.store'), [
             'original_link' => fake()->url(),
-            'life_seconds' => fake()->numberBetween(60 * 24),
+            'life_seconds' => fake()->numberBetween(Link::MAX_LIFE_TIME),
             'redirects_count' => fake()->numberBetween(),
         ]);
 

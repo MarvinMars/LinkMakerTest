@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Link;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreLinkRequest extends FormRequest
@@ -23,7 +24,7 @@ class StoreLinkRequest extends FormRequest
     {
         return [
             'original_link' => ['required', 'url'],
-            'life_seconds' => ['required', 'integer', 'between:0,'.(60 * 24)],
+            'life_seconds' => ['required', 'integer', 'between:0,'.Link::MAX_LIFE_TIME],
             'redirects_count' => ['required', 'integer'],
         ];
     }

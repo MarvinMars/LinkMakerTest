@@ -11,6 +11,8 @@ class Link extends Model
 {
     use HasFactory;
 
+    const MAX_LIFE_TIME = 60 * 60 * 24;
+
     protected $fillable = [
         'original_link',
         'life_seconds',
