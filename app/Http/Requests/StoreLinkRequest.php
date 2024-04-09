@@ -23,7 +23,7 @@ class StoreLinkRequest extends FormRequest
     {
         return [
 	        'original_link' => ['required', 'url'],
-	        'life_seconds' => ['required', 'unique:links', 'integer', 'between:0,'. (60*24)],
+	        'life_seconds' => ['required', 'integer', 'between:0,'. (60*24)],
 	        'redirects_count' => ['required', 'integer']
         ];
     }

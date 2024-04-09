@@ -21,8 +21,8 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
-	    Link::create($request->all());
-
+	    $link = Link::create($request->all());
+	    session()->flash('link', $link);
 		return response()->redirectToRoute('links.create');
     }
 
