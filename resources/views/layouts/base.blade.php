@@ -14,5 +14,6 @@
 </head>
 <body class="vh-100 d-flex align-items-center justify-content-center">
     @yield('content')
+    @stack('scripts')
 </body>
 </html>
