@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id();
-			$table->string('original_link');
-			$table->string('short_link')->unique();
-			$table->integer('life_seconds')->default(0);
-	        $table->integer('redirects_count')->default(0);
-	        $table->boolean('is_infinity')->default(false);
+            $table->string('original_link');
+            $table->string('short_link')->unique();
+            $table->integer('life_seconds')->default(0);
+            $table->integer('redirects_count')->default(0);
+            $table->boolean('is_infinity')->default(false);
             $table->timestamps();
         });
     }

@@ -22,9 +22,9 @@ class StoreLinkRequest extends FormRequest
     public function rules(): array
     {
         return [
-	        'original_link' => ['required', 'url'],
-	        'life_seconds' => ['required', 'integer', 'between:0,'. (60*24)],
-	        'redirects_count' => ['required', 'integer']
+            'original_link' => ['required', 'url'],
+            'life_seconds' => ['required', 'integer', 'between:0,'.(60 * 24)],
+            'redirects_count' => ['required', 'integer'],
         ];
     }
 }

@@ -13,7 +13,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-		return view('links.create');
+        return view('links.create');
     }
 
     /**
@@ -21,9 +21,10 @@ class LinkController extends Controller
      */
     public function store(StoreLinkRequest $request)
     {
-	    $link = Link::create($request->all());
-	    session()->flash('link', $link);
-		return response()->redirectToRoute('links.create');
+        $link = Link::create($request->all());
+        session()->flash('link', $link);
+
+        return response()->redirectToRoute('links.create');
     }
 
     /**
@@ -31,21 +32,21 @@ class LinkController extends Controller
      */
     public function redirect(Request $request, $short_link)
     {
-	    if(!$short_link) {
-		    abort(404);
-	    }
+        if (! $short_link) {
+            abort(404);
+        }
 
-		$link = Link::where('short_link', $short_link)->first();
+        $link = Link::where('short_link', $short_link)->first();
 
-		if(!$link) {
-			abort(404);
-		}
+        if (! $link) {
+            abort(404);
+        }
 
-		if($link->isExpired() || !$link->hasRedirectAttempts()) {
-			abort(404);
-		}
+        if ($link->isExpired() || ! $link->hasRedirectAttempts()) {
+            abort(404);
+        }
 
-	    $link->redirectsDecrement();
+        $link->redirectsDecrement();
 
         return redirect()->away($link->original_link);
     }
