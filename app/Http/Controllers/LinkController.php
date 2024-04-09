@@ -13,7 +13,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        return view('links.create');
+        return view('pages.links.create');
     }
 
     /**
