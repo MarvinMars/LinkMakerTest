@@ -26,9 +26,9 @@ class LinkTest extends TestCase
 			'redirects_count' => fake()->numberBetween(1)
 		];
 
-		$response = $this->post(route('links.create'), $data);
+		$response = $this->post(route('links.store'), $data);
 
-		$response->assertRedirectToRoute(route('links.create'));
+		$response->assertRedirectToRoute('links.create');
 
 		$this->assertDatabaseHas('links', $data);
 	}
@@ -41,9 +41,9 @@ class LinkTest extends TestCase
 			'redirects_count' => 0
 		];
 
-		$response = $this->post(route('links.create'), $data);
+		$response = $this->post(route('links.store'), $data);
 
-		$response->assertRedirectToRoute(route('links.create'));
+		$response->assertRedirectToRoute('links.create');
 
 		$data['is_infinity'] = true;
 
@@ -52,11 +52,11 @@ class LinkTest extends TestCase
 
 	public function test_link_validation_fail(): void
 	{
-		$response = $this->post(route('links.create'));
+		$response = $this->post(route('links.store'));
 
 		$response->assertInvalid(['original_link', 'life_seconds', 'redirects_count']);
 
-		$response = $this->post(route('links.create'), [
+		$response = $this->post(route('links.store'), [
 			'original_link' => null,
 			'life_seconds' => 'invalid value type',
 			'redirects_count' => 'invalid value type'
@@ -64,7 +64,7 @@ class LinkTest extends TestCase
 
 		$response->assertInvalid(['original_link', 'life_seconds', 'redirects_count']);
 
-		$response = $this->post(route('links.create'), [
+		$response = $this->post(route('links.store'), [
 			'original_link' => fake()->url(),
 			'life_seconds' => fake()->numberBetween( 60*24 ),
 			'redirects_count' => fake()->numberBetween()
@@ -84,12 +84,12 @@ class LinkTest extends TestCase
 
 		$response = $this->get(route('links.redirect', ['short_link' => $link->short_link]));
 
-		$response->assertRedirect($this->original_link);
+		$response->assertRedirect($link->original_link);
 	}
 
 	public function test_link_redirect_decrement(): void
 	{
-		$redirects = 1;
+		$redirects = 2;
 
 		$link = Link::factory()->create(
 			[
