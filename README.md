@@ -25,7 +25,9 @@ sail test
 ```
 sail npm run dev
 ```
-Перейти за адресою додатка APP_URL:
+Перейти за адресою додатка APP_URL + роут створення нового посилання /links/create
+
+e.g. http://localhost/links/create
 
 ```
   LARAVEL v11.2.0  plugin v1.0.2
