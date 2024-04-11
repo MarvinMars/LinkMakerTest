@@ -1,3 +1,4 @@
+![Текст описания]([https://www.example.com/image.jpg](https://gregarious-taiyaki-d68f8e.netlify.app/images/Preview.png))
 # Як запустити проект
 Клонувати проект
 ```
